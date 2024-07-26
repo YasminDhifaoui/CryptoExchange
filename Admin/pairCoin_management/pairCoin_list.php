@@ -1,6 +1,6 @@
-
 <?php
 require '../config/config.php';
+
 
 session_start();
 
@@ -11,9 +11,9 @@ if (!isset($_SESSION['admin_username'])) {
 
 $username = $_SESSION['admin_username'];
 
-$sql = 'SELECT * FROM users';
+$sql = 'SELECT * FROM pair_coin';
 $stmt = $pdo->query($sql);
-$users = $stmt->fetchAll();
+$pairs = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +21,7 @@ $users = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User List</title>
+    <title>Pair Coin List</title>
     <link rel="shortcut icon" href="../assets/images/favicon.ico" />
       <link rel="stylesheet" href="../assets/css/libs.min.css">
       <link rel="stylesheet" href="../assets/css/coinex.css?v=1.0.0">  </head>
@@ -36,8 +36,8 @@ $users = $stmt->fetchAll();
 }
 
 .styled-table thead tr {
-    background-color: #ffa500; /* Light Orange */
-    color: #ffffff; /* White text */
+    background-color: #ffa500; 
+    color: #ffffff; 
     text-align: left;
 }
 
@@ -47,26 +47,26 @@ $users = $stmt->fetchAll();
 }
 
 .styled-table tbody tr {
-    background-color: #000000; /* Black background */
-    color: #ffffff; /* White text */
-    border-bottom: 1px solid #ffffff; /* White border */
+    background-color: #000000; 
+    color: #ffffff; 
+    border-bottom: 1px solid #ffffff; 
 }
 
 .styled-table tbody tr:nth-of-type(even) {
-    background-color: #000000; /* Black for even rows */
+    background-color: #000000; 
 }
 
 .styled-table tbody tr:nth-of-type(odd) {
-    background-color: #000000; /* Black for odd rows */
+    background-color: #000000; 
 }
 
 .styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid #ffa500; /* Light Orange */
+    border-bottom: 2px solid #ffa500;
 }
 
 .styled-table tbody tr.active-row {
     font-weight: bold;
-    color: #ffa500; /* Light Orange */
+    color: #ffa500;
 }
 
 </style>
@@ -81,40 +81,42 @@ $users = $stmt->fetchAll();
 <main class="main-content">
 <div class="container-fluid content-inner pb-0">
 
-<img src="../uploads/Users.png" width=90px ><br> <br><br> <br>
-<table class="styled-table">
+
+<img src="../uploads/pairCoin.webp" width=70px  ><br> <br><br> <br>
+
+<a href="create_pairCoin.php"><img src="../uploads/crud/add.png" width=30px style="border-radius:100px;">Add
+<table class="styled-table" >
     <thead>
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>LastName</th>
-            <th>Email</th>
-            <th>Created_at</th>
-            <th>Is_active</th>
+            <th>Full Name</th>
+            <th>Market</th>
+            <th>Cryptocoin</th>
+            <th>Status</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        <?php if (count($users) > 0): ?>
-            <?php foreach ($users as $user): ?>
+        <?php if (count($pairs) > 0): ?>
+            <?php foreach ($pairs as $pair): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($user['id']); ?></td>
-                    <td><?php echo htmlspecialchars($user['username']); ?></td>
-                    <td><?php echo htmlspecialchars($user['lastName']); ?></td>
-                    <td><?php echo htmlspecialchars($user['email']); ?></td>
-                    <td><?php echo htmlspecialchars($user['created_at']); ?></td>
-                    <td><?php echo htmlspecialchars($user['is_active']); ?></td>
+                    <td><?php echo htmlspecialchars($pair['id']); ?></td>
+                    <td><?php echo htmlspecialchars($pair['name']); ?></td>
+                    <td><?php echo htmlspecialchars($pair['fullname']); ?></td>
+                    <td><?php echo htmlspecialchars($pair['market_name']); ?></td>
+                    <td><?php echo htmlspecialchars($pair['cryptocoin_name']); ?></td>
+                    <td><?php echo htmlspecialchars($pair['status']); ?></td>
                     <td>
-                        <a href="edit_user.php?id=<?php echo $user['id']; ?>">Edit</a>
-                        <a href="delete_user.php?id=<?php echo $user['id']; ?>" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
-                        
+                        <a href="edit_pairCoin.php?id=<?php echo $pair['id']; ?>">Edit</a>
+
 
                     </td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
             <tr>
-                <td colspan="3">No users found.</td>
+                <td colspan="3">No pairs of coins found.</td>
             </tr>
         <?php endif; ?>
     </tbody>

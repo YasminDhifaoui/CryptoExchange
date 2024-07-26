@@ -1,5 +1,8 @@
 <?php
-require_once('../config/config.php');
+require '../config/config.php';
+include '../../phpmailer/vendor/autoload.php'; 
+
+
 
 session_start();
 
@@ -10,36 +13,59 @@ if (!isset($_SESSION['admin_username'])) {
 
 $username = $_SESSION['admin_username'];
 
-// Fetch user details if GET request is made
-if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
-    $id = $_GET['id'];
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
-    $sql = "SELECT * FROM users WHERE id = ?";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$id]);
-    $user = $stmt->fetch();
-
-    if (!$user) {
-        echo "User not found.";
-        exit;
-    }
-} 
-// Update user details if POST request is made
-elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
-    $id = $_POST['id'];
-    $username = $_POST['username'];
-    $lastName = $_POST['lastName'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
-    $is_active = isset($_POST['is_active']) ? 1 : 0;
+    $username = $_POST['username'];
 
-    $sql = "UPDATE users SET username = ?, lastName = ?, email = ?, is_active = ? WHERE id = ?";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$username, $lastName, $email, $is_active, $id]);
+    if (!empty($email) && !empty($username)) {
+        $password = random_int(100000, 999999);
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        
+        $stmt = $pdo->prepare("INSERT INTO admin (username, email, password) VALUES (?, ?, ?)");
+        $result = $stmt->execute([$username,  $email, $hashedPassword]);
 
-    header("Location: users_list.php"); 
-    exit;
-} else {
-    echo "Invalid request.";
+        if ($result) {
+            $subject = 'Your Admin Account has been created, verify your account';
+            $body = "Hello,\n\nUsername: $username\nPassword: $password\n\n";
+            $body .= "In order to verify your account, click on this link:\n";
+            $body .= "http://localhost/Crypto/Admin/auth/sign-in.php\n\n";
+            $body .= "Thank you,\nCrypto";
+
+            try {
+                $mail = new PHPMailer(true);
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com'; 
+                $mail->SMTPAuth = true;
+                
+                $mail->Username = 'usermyb@gmail.com'; 
+                $mail->Password = 'nkpv iouw wtkm kvth'; 
+                
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port = 587;
+
+                $mail->setFrom('usermyb@gmail.com', 'Mohamed Yassine');
+                $mail->addAddress($email);
+
+                $mail->isHTML(false);
+                $mail->Subject = $subject;
+                $mail->Body = $body;
+
+                $mail->send();
+                $_SESSION['success_message'] = 'A verification email has been sent to the user.';
+            } catch (Exception $e) {
+                $_SESSION['error_message'] = 'Error sending a verification email, please try again.';
+            }
+        } else {
+            $_SESSION['error_message'] = 'Account creation error.';
+        }
+    } else {
+        $_SESSION['error_message'] = 'All fields must be filled.';
+    }
+
+    header('Location: admin_list.php');
     exit;
 }
 ?>
@@ -49,7 +75,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit User</title>
+    <title>Create Admin</title>
     <link rel="shortcut icon" href="../assets/images/favicon.ico" />
     <link rel="stylesheet" href="../assets/css/libs.min.css">
     <link rel="stylesheet" href="../assets/css/coinex.css?v=1.0.0">
@@ -76,7 +102,6 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
 
         .form-container input[type="text"],
         .form-container input[type="email"],
-        .form-container input[type="checkbox"],
         .form-container input[type="submit"] {
             width: 100%;
             padding: 10px;
@@ -84,10 +109,6 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
             border-radius: 4px;
             border: 1px solid #ccc;
             box-sizing: border-box;
-        }
-
-        .form-container input[type="checkbox"] {
-            width: auto;
         }
 
         .form-container input[type="submit"] {
@@ -122,30 +143,24 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
     <main class="main-content">
         <div class="container-fluid content-inner pb-0">
             <div class="form-container">
-                <h1>Edit User</h1>
+                <h1>Create Admin</h1>
 
                 <form action="" method="post">
-                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($user['id']); ?>">
-
                     <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" required><br>
-
-                    <label for="lastName">Last Name:</label>
-                    <input type="text" id="lastName" name="lastName" value="<?php echo htmlspecialchars($user['lastName']); ?>" required><br>
+                    <input type="text" id="username" name="username" required><br>
 
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required><br>
+                    <input type="email" id="email" name="email" required><br>
 
-                    <label for="is_active">Active:</label>
-                    <input type="checkbox" id="is_active" name="is_active" value="1" <?php echo $user['is_active'] ? 'checked' : ''; ?>><br>
-
-                    <input type="submit" value="Update User">
+                    <input type="submit" value="Create Admin">
                 </form>
 
-                <a href="users_list.php">Back to User List</a>
+                <a href="admin_list.php">Go to Admin List</a>
             </div>
         </div>
     </main>
+
+    <?php include_once '../includes/footer.php'; ?>
 
     <!-- Backend Bundle JavaScript -->
     <script src="../assets/js/libs.min.js"></script>

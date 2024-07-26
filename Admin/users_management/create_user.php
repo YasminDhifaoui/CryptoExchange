@@ -2,6 +2,15 @@
 require '../config/config.php';
 include '../../phpmailer/vendor/autoload.php'; 
 
+session_start();
+
+if (!isset($_SESSION['admin_username'])) {
+    header("Location: login.php"); 
+    exit();
+}
+
+$username = $_SESSION['admin_username'];
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -66,55 +75,103 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create User</title>
+    <link rel="shortcut icon" href="../assets/images/favicon.ico" />
+    <link rel="stylesheet" href="../assets/css/libs.min.css">
+    <link rel="stylesheet" href="../assets/css/coinex.css?v=1.0.0">
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .form-container h1 {
+            margin-bottom: 20px;
+        }
+
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-container label {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .form-container input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .form-container input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .form-container a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .form-container a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
-<meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Dashboard - SB Admin</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-        <link href="../css/styles.css" rel="stylesheet" />
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    
-<body class="sb-nav-fixed"> 
+<body class="sb-nav-fixed">
+    <?php include_once '../includes/nav.php'; ?>
+    <?php include_once '../includes/sidebar.php'; ?>
 
+    <main class="main-content">
+        <div class="container-fluid content-inner pb-0">
+            <div class="form-container">
+                <h1>Create User</h1>
+                <form action="" method="post">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required><br>
 
-<?php include_once'../includes/nav.php'; ?>
-<?php include_once'../includes/sidebar.php';?>
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" required><br>
 
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required><br>
 
-<div id="layoutSidenav_content">
-<div class="container-fluid px-4">
-<h1>Create User</h1>
+                    <input type="submit" value="Create User">
+                </form>
 
-<form action="" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br><br>
+                <a href="users_list.php">Go to User List</a>
+            </div>
+        </div>
+    </main>
 
-    <label for="lastName">Last Name:</label>
-    <input type="text" id="lastName" name="lastName" required><br><br>
+    <?php include_once '../includes/footer.php'; ?>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br><br>
-
-    <input type="submit" value="Create User">
-</form>
-
-<a href="users_list.php">Go to User List</a>
-
-</div>
-</div>
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<script src="../js/scripts.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script src="../assets/demo/chart-area-demo.js"></script>
-<script src="../assets/demo/chart-bar-demo.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-<script src="../js/datatables-simple-demo.js"></script>
-    
+    <!-- Backend Bundle JavaScript -->
+    <script src="../assets/js/libs.min.js"></script>
+    <!-- widgetchart JavaScript -->
+    <script src="../assets/js/charts/widgetcharts.js"></script>
+    <!-- fslightbox JavaScript -->
+    <script src="../assets/js/fslightbox.js"></script>
+    <!-- app JavaScript -->
+    <script src="../assets/js/app.js"></script>
+    <!-- apexchart JavaScript -->
+    <script src="../assets/js/charts/apexcharts.js"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 <?php
 require_once('../config/config.php');
 
+
 session_start();
 
 if (!isset($_SESSION['admin_username'])) {
@@ -10,33 +11,29 @@ if (!isset($_SESSION['admin_username'])) {
 
 $username = $_SESSION['admin_username'];
 
-// Fetch user details if GET request is made
+
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    $sql = "SELECT * FROM users WHERE id = ?";
+    $sql = "SELECT * FROM admin WHERE id = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$id]);
-    $user = $stmt->fetch();
+    $admin = $stmt->fetch();
 
-    if (!$user) {
-        echo "User not found.";
+    if (!$admin) {
+        echo "Admin not found.";
         exit;
     }
-} 
-// Update user details if POST request is made
-elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
+} elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
     $id = $_POST['id'];
     $username = $_POST['username'];
-    $lastName = $_POST['lastName'];
     $email = $_POST['email'];
-    $is_active = isset($_POST['is_active']) ? 1 : 0;
 
-    $sql = "UPDATE users SET username = ?, lastName = ?, email = ?, is_active = ? WHERE id = ?";
+    $sql = "UPDATE admin SET username = ?, email = ? WHERE id = ?";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$username, $lastName, $email, $is_active, $id]);
+    $stmt->execute([$username, $email, $id]);
 
-    header("Location: users_list.php"); 
+    header("Location: admin_list.php"); 
     exit;
 } else {
     echo "Invalid request.";
@@ -49,7 +46,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit User</title>
+    <title>Edit Admin</title>
     <link rel="shortcut icon" href="../assets/images/favicon.ico" />
     <link rel="stylesheet" href="../assets/css/libs.min.css">
     <link rel="stylesheet" href="../assets/css/coinex.css?v=1.0.0">
@@ -76,7 +73,6 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
 
         .form-container input[type="text"],
         .form-container input[type="email"],
-        .form-container input[type="checkbox"],
         .form-container input[type="submit"] {
             width: 100%;
             padding: 10px;
@@ -84,10 +80,6 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
             border-radius: 4px;
             border: 1px solid #ccc;
             box-sizing: border-box;
-        }
-
-        .form-container input[type="checkbox"] {
-            width: auto;
         }
 
         .form-container input[type="submit"] {
@@ -122,30 +114,25 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
     <main class="main-content">
         <div class="container-fluid content-inner pb-0">
             <div class="form-container">
-                <h1>Edit User</h1>
-
+                <h1>Edit Admin</h1>
                 <form action="" method="post">
-                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($user['id']); ?>">
+                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($admin['id']); ?>">
 
                     <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user['username']); ?>" required><br>
-
-                    <label for="lastName">Last Name:</label>
-                    <input type="text" id="lastName" name="lastName" value="<?php echo htmlspecialchars($user['lastName']); ?>" required><br>
+                    <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($admin['username']); ?>" required><br>
 
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required><br>
+                    <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($admin['email']); ?>" required><br>
 
-                    <label for="is_active">Active:</label>
-                    <input type="checkbox" id="is_active" name="is_active" value="1" <?php echo $user['is_active'] ? 'checked' : ''; ?>><br>
-
-                    <input type="submit" value="Update User">
+                    <input type="submit" value="Update Admin">
                 </form>
 
-                <a href="users_list.php">Back to User List</a>
+                <a href="admin_list.php">Back to Admin List</a>
             </div>
         </div>
     </main>
+
+    <?php include_once '../includes/footer.php'; ?>
 
     <!-- Backend Bundle JavaScript -->
     <script src="../assets/js/libs.min.js"></script>

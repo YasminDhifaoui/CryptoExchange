@@ -1,6 +1,6 @@
-
 <?php
 require '../config/config.php';
+
 
 session_start();
 
@@ -11,9 +11,9 @@ if (!isset($_SESSION['admin_username'])) {
 
 $username = $_SESSION['admin_username'];
 
-$sql = 'SELECT * FROM users';
+$sql = 'SELECT * FROM cryptocoin';
 $stmt = $pdo->query($sql);
-$users = $stmt->fetchAll();
+$cryptocoin = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +21,7 @@ $users = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User List</title>
+    <title>cryptocoin List</title>
     <link rel="shortcut icon" href="../assets/images/favicon.ico" />
       <link rel="stylesheet" href="../assets/css/libs.min.css">
       <link rel="stylesheet" href="../assets/css/coinex.css?v=1.0.0">  </head>
@@ -80,33 +80,39 @@ $users = $stmt->fetchAll();
 
 <main class="main-content">
 <div class="container-fluid content-inner pb-0">
-
-<img src="../uploads/Users.png" width=90px ><br> <br><br> <br>
+<img src="../uploads/icon.png" width=90px style="border-radius:100px;"><br> <br><br> <br>
+<a href="create_cryptocoin.php"><img src="../uploads/crud/add.png" width=30px style="border-radius:100px;">Add cryptocoin
 <table class="styled-table">
     <thead>
         <tr>
             <th>ID</th>
+            <th>Icon</th>
             <th>Name</th>
-            <th>LastName</th>
-            <th>Email</th>
-            <th>Created_at</th>
-            <th>Is_active</th>
+            <th>Full Name</th>
+            <th>Symbol</th>
+            <th>Decimal Value</th>
+            <th>Proof Type</th>
+            <th>Rank</th>
+            <th>Status</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        <?php if (count($users) > 0): ?>
-            <?php foreach ($users as $user): ?>
+        <?php if (count($cryptocoin) > 0): ?>
+            <?php foreach ($cryptocoin as $crypto): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($user['id']); ?></td>
-                    <td><?php echo htmlspecialchars($user['username']); ?></td>
-                    <td><?php echo htmlspecialchars($user['lastName']); ?></td>
-                    <td><?php echo htmlspecialchars($user['email']); ?></td>
-                    <td><?php echo htmlspecialchars($user['created_at']); ?></td>
-                    <td><?php echo htmlspecialchars($user['is_active']); ?></td>
+                    <td><?php echo htmlspecialchars($crypto['id']); ?></td>
+                    <td><img width="70px" style="border-radius:100px;" src="../uploads/<?php echo htmlspecialchars($crypto['image']); ?>"></td>
+                    <td><?php echo htmlspecialchars($crypto['name']); ?></td>
+                    <td><?php echo htmlspecialchars($crypto['full_name']); ?></td>
+                    <td><?php echo htmlspecialchars($crypto['symbol']); ?></td>
+                    <td><?php echo htmlspecialchars($crypto['decimal_value']); ?></td>
+                    <td><?php echo htmlspecialchars($crypto['proof_type']); ?></td>
+                    <td><?php echo htmlspecialchars($crypto['rank']); ?></td>
+                    <td><?php echo htmlspecialchars($crypto['status']); ?></td>
                     <td>
-                        <a href="edit_user.php?id=<?php echo $user['id']; ?>">Edit</a>
-                        <a href="delete_user.php?id=<?php echo $user['id']; ?>" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
+                        <a href="edit_cryptocoin.php?id=<?php echo $crypto['id']; ?>"><img src="../uploads/crud/update.jpg" width=30px style="border-radius:100px;"></a>
+                        <a href="delete_cryptocoin.php?id=<?php echo $crypto['id']; ?>" onclick="return confirm('Are you sure you want to delete this cryptocoin?');"><img src="../uploads/crud/delete.png" width=30px style="border-radius:100px;"></a>
                         
 
                     </td>
@@ -114,7 +120,7 @@ $users = $stmt->fetchAll();
             <?php endforeach; ?>
         <?php else: ?>
             <tr>
-                <td colspan="3">No users found.</td>
+                <td colspan="3">No cryptocoin found.</td>
             </tr>
         <?php endif; ?>
     </tbody>

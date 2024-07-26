@@ -1,9 +1,9 @@
 <header id="header_main" class="header">
         <div class="container">
             <div id="site-header-inner">
-                <div class="header__logo">
+                <!--<div class="header__logo">
                     <a href="index.html"><img src="assets/images/logo/logo.png" alt=""></a>
-                </div>
+                </div>-->
                 <nav id="main-nav" class="main-nav">
                     <ul id="menu-primary-menu" class="menu">
                         <li class="menu-item menu-item-has-children  current-menu-item">
@@ -37,7 +37,7 @@
                                 <li class="menu-item"><a href="faq.html">FAQs</a></li>
                                 <li class="menu-item"><a href="./auth/login.php">Login</a></li>
                                 <li class="menu-item"><a href="./auth/register.php">Register</a></li>
-                                <li class="menu-item"><a href="forget-password.html">Forget Password</a></li>
+                                <li class="menu-item"><a href="forget-password.php">Forget Password</a></li>
                             </ul>
                         </li>
                         <li class="menu-item ">

@@ -11,7 +11,7 @@ session_destroy();
     <title>Deconnect</title>
     <script type="text/javascript">
         alert("You have been logged out");
-        window.location.href = "loginAdmin.php";
+        window.location.href = "sign-in.php";
     </script>
 </head>
 <body>

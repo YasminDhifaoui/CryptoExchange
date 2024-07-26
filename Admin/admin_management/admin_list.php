@@ -1,4 +1,3 @@
-
 <?php
 require '../config/config.php';
 
@@ -11,9 +10,9 @@ if (!isset($_SESSION['admin_username'])) {
 
 $username = $_SESSION['admin_username'];
 
-$sql = 'SELECT * FROM users';
+$sql = 'SELECT * FROM admin';
 $stmt = $pdo->query($sql);
-$users = $stmt->fetchAll();
+$admins = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +20,7 @@ $users = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User List</title>
+    <title>Admin List</title>
     <link rel="shortcut icon" href="../assets/images/favicon.ico" />
       <link rel="stylesheet" href="../assets/css/libs.min.css">
       <link rel="stylesheet" href="../assets/css/coinex.css?v=1.0.0">  </head>
@@ -81,32 +80,30 @@ $users = $stmt->fetchAll();
 <main class="main-content">
 <div class="container-fluid content-inner pb-0">
 
-<img src="../uploads/Users.png" width=90px ><br> <br><br> <br>
+
+<img src="../uploads/Admin.png" width=70px  style="border-radius:1000%;"><br> <br><br> <br>
+
 <table class="styled-table">
     <thead>
         <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>LastName</th>
+            <th>Username</th>
             <th>Email</th>
             <th>Created_at</th>
-            <th>Is_active</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        <?php if (count($users) > 0): ?>
-            <?php foreach ($users as $user): ?>
+        <?php if (count($admins) > 0): ?>
+            <?php foreach ($admins as $admin): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($user['id']); ?></td>
-                    <td><?php echo htmlspecialchars($user['username']); ?></td>
-                    <td><?php echo htmlspecialchars($user['lastName']); ?></td>
-                    <td><?php echo htmlspecialchars($user['email']); ?></td>
-                    <td><?php echo htmlspecialchars($user['created_at']); ?></td>
-                    <td><?php echo htmlspecialchars($user['is_active']); ?></td>
+                    <td><?php echo htmlspecialchars($admin['id']); ?></td>
+                    <td><?php echo htmlspecialchars($admin['username']); ?></td>
+                    <td><?php echo htmlspecialchars($admin['email']); ?></td>
+                    <td><?php echo htmlspecialchars($admin['created_at']); ?></td>
                     <td>
-                        <a href="edit_user.php?id=<?php echo $user['id']; ?>">Edit</a>
-                        <a href="delete_user.php?id=<?php echo $user['id']; ?>" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
+                        <a href="edit_admin.php?id=<?php echo $admin['id']; ?>">Edit</a>
+                        <a href="delete_admin.php?id=<?php echo $admin['id']; ?>" onclick="return confirm('Are you sure you want to delete this admin?');">Delete</a>
                         
 
                     </td>
@@ -114,7 +111,7 @@ $users = $stmt->fetchAll();
             <?php endforeach; ?>
         <?php else: ?>
             <tr>
-                <td colspan="3">No users found.</td>
+                <td colspan="3">No admins found.</td>
             </tr>
         <?php endif; ?>
     </tbody>
