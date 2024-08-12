@@ -67,6 +67,19 @@
                                 </a>
                             </li>
                             
+
+                            <li class="nav-item">
+                                <a class="nav-link " href="../users_management/verification_requests.php">
+                                    <i class="icon">
+                                        <svg width="10" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="0.5" y="1" width="11" height="11" stroke="currentcolor"/>
+                                        </svg> 
+                                    </i>
+                                    <i class="sidenav-mini-icon"> U </i>
+                                    <span class="item-name">Users verification</span>
+                                </a>
+                            </li>
+
                         </ul>
                     </li>
 
@@ -165,16 +178,17 @@
     </ul>
 </li>
 
+<!--Finance-->
 
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#sidebar-auth" role="button" aria-expanded="false" aria-controls="sidebar-user">
-                            <i class="icon">
-                                 <svg width="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.9846 21.606C11.9846 21.606 19.6566 19.283 19.6566 12.879C19.6566 6.474 19.9346 5.974 19.3196 5.358C18.7036 4.742 12.9906 2.75 11.9846 2.75C10.9786 2.75 5.26557 4.742 4.65057 5.358C4.03457 5.974 4.31257 6.474 4.31257 12.879C4.31257 19.283 11.9846 21.606 11.9846 21.606Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M9.38574 11.8746L11.2777 13.7696L15.1757 9.86963" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                                </svg>
-                            </i>
-                            <span class="item-name">Authentication</span>
+                        <i class="icon">
+    <svg width="22" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 4H20C20.55 4 21 4.45 21 5V11C21 11.55 20.55 12 20 12H4C3.45 12 3 11.55 3 11V5C3 4.45 3.45 4 4 4ZM2 5C2 3.9 2.9 3 4 3H20C21.1 3 22 3.9 22 5V11C22 12.1 21.1 13 20 13H4C2.9 13 2 12.1 2 11V5ZM2 16C2 14.9 2.9 14 4 14H20C21.1 14 22 14.9 22 16V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V16ZM20 16H4V18H20V16Z" fill="currentColor"/>
+    </svg>
+</i>
+
+                            <span class="item-name">Finance</span>
                             <i class="right-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -182,6 +196,30 @@
                             </i>
                         </a>
                         <ul class="sub-nav collapse" id="sidebar-auth" data-bs-parent="#sidebar">
+                        <li class="nav-item">
+                                <a class="nav-link" href="../finance/add_credit.php">
+                                    <i class="icon">
+                                        <svg width="10" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="0.5" y="1" width="11" height="11" stroke="currentcolor"/>
+                                        </svg> 
+                                    </i>
+                                    <i class="sidenav-mini-icon"> L </i>
+                                    <span class="item-name">Add Credit</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../finance/credit_list.php">
+                                   <i class="icon">
+                                        <svg width="10" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="0.5" y="1" width="11" height="11" stroke="currentcolor"/>
+                                        </svg> 
+                                    </i>
+                                    <i class="sidenav-mini-icon"> R </i>
+                                    <span class="item-name">Credit List</span>
+                                </a>
+                            </li>
+
+
                             <li class="nav-item">
                                 <a class="nav-link" href="../dashboard/auth/sign-in.html">
                                     <i class="icon">
@@ -190,7 +228,7 @@
                                         </svg> 
                                     </i>
                                     <i class="sidenav-mini-icon"> L </i>
-                                    <span class="item-name">Login</span>
+                                    <span class="item-name">Retrait fiat</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -201,7 +239,7 @@
                                         </svg> 
                                     </i>
                                     <i class="sidenav-mini-icon"> R </i>
-                                    <span class="item-name">Register</span>
+                                    <span class="item-name">Retrer crypto</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -212,33 +250,16 @@
                                         </svg> 
                                     </i>
                                     <i class="sidenav-mini-icon"> C </i>
-                                    <span class="item-name">Confirm Mail</span>
+                                    <span class="item-name">list depot</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="../dashboard/auth/lock-screen.html">
-                                    <i class="icon">
-                                        <svg width="10" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="0.5" y="1" width="11" height="11" stroke="currentcolor"/>
-                                        </svg> 
-                                    </i>
-                                    <i class="sidenav-mini-icon"> L </i>
-                                    <span class="item-name">Lock Screen</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="../dashboard/auth/recoverpw.html">
-                                   <i class="icon">
-                                        <svg width="10" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <rect x="0.5" y="1" width="11" height="11" stroke="currentcolor"/>
-                                        </svg> 
-                                    </i>
-                                    <i class="sidenav-mini-icon"> R </i>
-                                    <span class="item-name">Recover password</span>
-                                </a>
-                            </li>
+                            
                         </ul>
                     </li> 
+
+        
+
+
                     <li class="nav-item">
                         <a class="nav-link " href="../dashboard/maps/google.html">
                             <i class="icon">

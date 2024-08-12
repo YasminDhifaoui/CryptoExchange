@@ -1,7 +1,6 @@
 <?php
 require_once('../config/config.php');
 
-
 session_start();
 
 if (!isset($_SESSION['admin_username'])) {
@@ -10,7 +9,6 @@ if (!isset($_SESSION['admin_username'])) {
 }
 
 $username = $_SESSION['admin_username'];
-
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -26,31 +24,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
     }
 } elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])) {
     $id = $_POST['id'];
-    $name = $_POST['name'];
-    $symbol = $_POST['symbol'];
-    $decimal_value = $_POST['decimal_value'];
-    $coin_name = $_POST['coin_name'];
-    $full_name = $_POST['full_name'];
+    $name = htmlspecialchars(trim($_POST['name']));
+    $symbol = htmlspecialchars(trim($_POST['symbol']));
+    $decimal_value = filter_var($_POST['decimal_value'], FILTER_VALIDATE_FLOAT);
+    $coin_name = htmlspecialchars(trim($_POST['coin_name']));
+    $full_name = htmlspecialchars(trim($_POST['full_name']));
     $proof_type = $_POST['proof_type'];
     $show_home = $_POST['show_home'];
-    $rank = $_POST['rank'];
+    $rank = filter_var($_POST['rank'], FILTER_VALIDATE_INT);
     $status = $_POST['status'];
 
+    // Update main fields
     $sql = "UPDATE cryptocoin SET name = ?, symbol = ?, decimal_value = ?, coin_name = ?, full_name = ?, proof_type = ?, show_home = ?, rank = ?, status = ? WHERE id = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$name, $symbol, $decimal_value, $coin_name, $full_name, $proof_type, $show_home, $rank, $status, $id]);
 
+    // Handle image upload
     if (!empty($_FILES['image']['name'])) {
         $image = $_FILES['image']['name'];
-        $target_dir = "../uploads/";
-        $target_file = $target_dir . basename($image);
+        $fileTmpPath = $_FILES['image']['tmp_name'];
+        $fileNameCmps = explode(".", $image);
+        $fileExtension = strtolower(end($fileNameCmps));
 
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
-            $sql = "UPDATE cryptocoin SET image = ? WHERE id = ?";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([$target_file, $id]);
+        // Sanitize and create the new file name
+        $newFileName = $name . '_image.' . $fileExtension;
+
+        // Directory to save the uploaded file
+        $uploadFileDir = '../uploads/cryptocurrencies/';
+        $dest_path = $uploadFileDir . $newFileName;
+
+        // Allowed file extensions
+        $allowedfileExtensions = array('jpg', 'jpeg', 'png', 'gif','webp');
+        if (in_array($fileExtension, $allowedfileExtensions)) {
+            if (move_uploaded_file($fileTmpPath, $dest_path)) {
+                // Update the image path in the database
+                $sql = "UPDATE cryptocoin SET image = ? WHERE id = ?";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([$dest_path, $id]);
+            } else {
+                echo "Error uploading the file.";
+            }
         } else {
-            echo "Error uploading the file.";
+            echo "Upload failed. Allowed file types: " . implode(',', $allowedfileExtensions);
         }
     }
 
@@ -186,6 +201,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
 
                 <label for="image">Coin Image/Icon/Logo:</label>
                 <input type="file" id="image" name="image" accept="image/*"> <br>
+
+                <?php if (!empty($crypto['image'])): ?>
+                    <img src="<?php echo htmlspecialchars($crypto['image']); ?>" alt="Cryptocurrency Image">
+                <?php endif; ?>
                 
                 <br>
 

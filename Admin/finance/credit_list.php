@@ -11,9 +11,9 @@ if (!isset($_SESSION['admin_username'])) {
 
 $username = $_SESSION['admin_username'];
 
-$sql = 'SELECT * FROM cryptocoin';
+$sql = 'SELECT * FROM balance';
 $stmt = $pdo->query($sql);
-$cryptocoin = $stmt->fetchAll();
+$credits = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +21,7 @@ $cryptocoin = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cryptocoin List</title>
+    <title>credit List</title>
     <link rel="shortcut icon" href="../assets/images/favicon.ico" />
       <link rel="stylesheet" href="../assets/css/libs.min.css">
       <link rel="stylesheet" href="../assets/css/coinex.css?v=1.0.0">  </head>
@@ -36,8 +36,8 @@ $cryptocoin = $stmt->fetchAll();
 }
 
 .styled-table thead tr {
-    background-color: #ffa500; /* Light Orange */
-    color: #ffffff; /* White text */
+    background-color: #ffa500; 
+    color: #ffffff; 
     text-align: left;
 }
 
@@ -47,26 +47,26 @@ $cryptocoin = $stmt->fetchAll();
 }
 
 .styled-table tbody tr {
-    background-color: #000000; /* Black background */
-    color: #ffffff; /* White text */
-    border-bottom: 1px solid #ffffff; /* White border */
+    background-color: #000000; 
+    color: #ffffff; 
+    border-bottom: 1px solid #ffffff; 
 }
 
 .styled-table tbody tr:nth-of-type(even) {
-    background-color: #000000; /* Black for even rows */
+    background-color: #000000; 
 }
 
 .styled-table tbody tr:nth-of-type(odd) {
-    background-color: #000000; /* Black for odd rows */
+    background-color: #000000; 
 }
 
 .styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid #ffa500; /* Light Orange */
+    border-bottom: 2px solid #ffa500; 
 }
 
 .styled-table tbody tr.active-row {
     font-weight: bold;
-    color: #ffa500; /* Light Orange */
+    color: #ffa500; 
 }
 
 </style>
@@ -80,47 +80,39 @@ $cryptocoin = $stmt->fetchAll();
 
 <main class="main-content">
 <div class="container-fluid content-inner pb-0">
-<img src="../uploads/icon.png" width=90px style="border-radius:100px;"><br> <br><br> <br>
-<a href="create_cryptocoin.php"><img src="../uploads/crud/add.png" width=30px style="border-radius:100px;">Add cryptocoin
+
+
 <table class="styled-table">
     <thead>
         <tr>
             <th>ID</th>
-            <th>Icon</th>
-            <th>Name</th>
-            <th>Full Name</th>
-            <th>Symbol</th>
-            <th>Decimal Value</th>
-            <th>Proof Type</th>
-            <th>Rank</th>
-            <th>Status</th>
+            <th>ID User</th>
+            <th>Currency</th>
+            <th>Amount</th>
+            <th>Note</th>
+            <th>Date</th>
+            <th>Action</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        <?php if (count($cryptocoin) > 0): ?>
-            <?php foreach ($cryptocoin as $crypto): ?>
+        <?php if (count($credits) > 0): ?>
+            <?php foreach ($credits as $credit): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($crypto['id']); ?></td>
-                    <td><img width="70px" style="border-radius:100px;" src="../uploads/<?php echo htmlspecialchars($crypto['image']); ?>"></td>
-                    <td><?php echo htmlspecialchars($crypto['name']); ?></td>
-                    <td><?php echo htmlspecialchars($crypto['full_name']); ?></td>
-                    <td><?php echo htmlspecialchars($crypto['symbol']); ?></td>
-                    <td><?php echo htmlspecialchars($crypto['decimal_value']); ?></td>
-                    <td><?php echo htmlspecialchars($crypto['proof_type']); ?></td>
-                    <td><?php echo htmlspecialchars($crypto['rank']); ?></td>
-                    <td><?php echo htmlspecialchars($crypto['status']); ?></td>
+                    <td><?php echo htmlspecialchars($credit['id']); ?></td>
+                    <td><?php echo htmlspecialchars($credit['user_id']); ?></td>
+                    <td><?php echo htmlspecialchars($credit['currency_symbol']); ?></td>
+                    <td><?php echo htmlspecialchars($credit['balance']); ?></td>
+                    <td><?php echo htmlspecialchars($credit['note']); ?></td>
+                    <td><?php echo htmlspecialchars($credit['date']); ?></td>
                     <td>
-                        <a href="edit_cryptocoin.php?id=<?php echo $crypto['id']; ?>">Edit</a><br>
-                        <a href="delete_cryptocoin.php?id=<?php echo $crypto['id']; ?>" onclick="return confirm('Are you sure you want to delete this cryptocoin?');">Delete</a>
-                        
-
+                        <a href="edit_credit.php?id=<?php echo $credit['id']; ?>">Edit</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
             <tr>
-                <td colspan="3">No cryptocoin found.</td>
+                <td colspan="3">No credit found.</td>
             </tr>
         <?php endif; ?>
     </tbody>

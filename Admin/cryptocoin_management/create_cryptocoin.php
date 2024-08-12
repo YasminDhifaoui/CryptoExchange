@@ -10,7 +10,6 @@ if (!isset($_SESSION['admin_username'])) {
 
 $username = $_SESSION['admin_username'];
 
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     $name = htmlspecialchars(trim($_POST['name']));
@@ -25,15 +24,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $image = null;
     $target_file = null;
+
     if (!empty($_FILES['image']['name'])) {
         $image = $_FILES['image']['name'];
-        $target_dir = "../uploads/";
-        $target_file = $target_dir . basename($image);
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        $fileTmpPath = $_FILES['image']['tmp_name'];
+        $fileNameCmps = explode(".", $image);
+        $fileExtension = strtolower(end($fileNameCmps));
 
-       
-        
-        move_uploaded_file($_FILES['image']['tmp_name'], $target_file);
+        // Sanitize the file name
+        $newFileName = $name . '_image.' . $fileExtension;
+
+        // Directory in which to save the file
+        $uploadFileDir = '../uploads/cryptocurrencies/';
+        $dest_path = $uploadFileDir . $newFileName;
+
+        // Allow certain file formats
+        $allowedfileExtensions = array('jpg', 'jpeg', 'png', 'gif');
+        if (in_array($fileExtension, $allowedfileExtensions)) {
+            if (move_uploaded_file($fileTmpPath, $dest_path)) {
+                $target_file = $dest_path; // Set the target file to be stored in the database
+            } else {
+                echo "There was an error moving the uploaded file.";
+            }
+        } else {
+            echo "Upload failed. Allowed file types: " . implode(',', $allowedfileExtensions);
+        }
     }
 
     $sql = "INSERT INTO cryptocoin (name, symbol, decimal_value, coin_name, full_name, proof_type, show_home, rank, status, image) 
@@ -49,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

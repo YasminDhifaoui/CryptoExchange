@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $updateSql = "UPDATE users SET two_factor_enabled = 1, status = 'active' WHERE username = :username";
             $updateStmt = $pdo->prepare($updateSql);
             if ($updateStmt->execute(['username' => $username])) {
-                header('Location: ../acceuil.php');
+                header('Location: ../profile/acceuil.php');
                 exit();
             } else {
                 header("Location: two_factor.php?username=$username&message=update_failed");

@@ -3,10 +3,8 @@
             <div class="container">
                 <div class="row">
                     <div class="footer-logo">
-                        <div class="logo_footer">
-                            <img src="./assets/images/logo/logo2.png" alt="">
-                        </div>
-                        <p>A one-stop destination for web3 gaming.</p>
+                        
+                        <p>A one-stop destination for cryptocurrency.</p>
                     </div>
                     <div class="widget">
                         <h5 class="widget-title">
