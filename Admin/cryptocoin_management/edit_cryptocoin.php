@@ -180,8 +180,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
 
                 <label for="proof_type">Proof Type:</label>
                 <select id="proof_type" name="proof_type" required>
-                    <option value="local_coin" <?php echo $crypto['proof_type'] == 'local_coin' ? 'selected' : ''; ?>>Local Coin</option>
-                    <option value="fiat_currency" <?php echo $crypto['proof_type'] == 'fiat_currency' ? 'selected' : ''; ?>>Fiat Currency</option>
+                    <option value="crypto" <?php echo $crypto['proof_type'] == 'crypto' ? 'selected' : ''; ?>>Local Coin</option>
+                    <option value="fiat" <?php echo $crypto['proof_type'] == 'fiat' ? 'selected' : ''; ?>>Fiat Currency</option>
                 </select> <br>
 
                 <label for="show_home">Show Home:</label>

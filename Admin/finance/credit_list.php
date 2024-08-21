@@ -90,7 +90,7 @@ $credits = $stmt->fetchAll();
             <th>Currency</th>
             <th>Amount</th>
             <th>Note</th>
-            <th>Date</th>
+            <th>Last updated</th>
             <th>Action</th>
             <th></th>
         </tr>

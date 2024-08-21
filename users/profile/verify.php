@@ -12,7 +12,6 @@ $username = htmlspecialchars($_SESSION['username']);
 $id = isset($_SESSION['id']) ? htmlspecialchars($_SESSION['id']) : 'ID not set';
 $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Email not set';
 
-// Check verification status
 $stmt = $pdo->prepare("SELECT * FROM verifications WHERE user_id = :user_id");
 $stmt->execute([':user_id' => $id]);
 $verification = $stmt->fetch();
@@ -24,7 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $last_name = htmlspecialchars($_POST['last_name']);
     $status = 'not verified';
 
-    // File upload handling
     if (isset($_FILES['cin_picture']) && $_FILES['cin_picture']['error'] === UPLOAD_ERR_OK) {
         $fileTmpPath = $_FILES['cin_picture']['tmp_name'];
         $fileName = $_FILES['cin_picture']['name'];
@@ -33,17 +31,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fileNameCmps = explode(".", $fileName);
         $fileExtension = strtolower(end($fileNameCmps));
 
-        // Sanitize the file name
         $newFileName = $id . '_cin.' . $fileExtension;
 
-        // Directory in which to save the file
         $uploadFileDir = '../uploads/';
         $dest_path = $uploadFileDir . $newFileName;
 
-        // Allow certain file formats
         $allowedfileExtensions = array('jpg', 'jpeg', 'png', 'pdf');
         if (in_array($fileExtension, $allowedfileExtensions)) {
-            if ($fileSize < 5242880) { // 5MB limit
+            if ($fileSize < 5242880) { 
                 if (move_uploaded_file($fileTmpPath, $dest_path)) {
                     $stmt = $pdo->prepare("INSERT INTO verifications (user_id, cin, first_name, last_name, cinpic, verif_status) VALUES (:user_id, :cin, :first_name, :last_name, :cin_picture, :status)");
                     $stmt->execute([
@@ -70,7 +65,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -85,6 +79,72 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="../app/dist/app.css">
 
+    <!-- Custom CSS -->
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: gray;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container p {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-container label {
+            font-weight: bold;
+            color: black;
+        }
+
+        .form-container input[type="text"], 
+        .form-container input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            font-size: 14px;
+            color : black;
+        }
+
+        .form-container button[type="submit"] {
+            background-color: black;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .form-container img {
+            margin-top: 20px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .page-title {
+            padding: 40px 0;
+            text-align: center;
+            color: #fff;
+        }
+    </style>
+
     <!-- Favicon and Touch Icons  -->
     <link rel="shortcut icon" href="../assets/images/favicon.png">
     <link rel="apple-touch-icon-precomposed" href="../assets/images/favicon.png">
@@ -94,11 +154,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
 <?php include_once '../includes/nav.php'?>
-
+<br><br>
 <section class="page-title">
     <div class="form-container">
         <?php if ($verification && $verification['verif_status'] == 'Accepted'): ?>
-            <!-- Show user information -->
+            
             <p><strong>ID:</strong> <?php echo $id; ?></p>
             <p><strong>Email:</strong> <?php echo $email; ?></p>
             <p><strong>CIN:</strong> <?php echo htmlspecialchars($verification['cin']); ?></p>
@@ -107,7 +167,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p><strong>Status (verification):</strong> <?php echo htmlspecialchars($verification['verif_status']); ?></p>
             <img width="200px" src="../uploads/<?php echo htmlspecialchars($verification['cinpic']); ?>" alt="CIN Picture">
         <?php else: ?>
-            <!-- Show the verification form -->
             <p><strong>ID:</strong> <?php echo $id; ?></p>
             <p><strong>Email:</strong> <?php echo $email; ?></p>
             <form action="" method="POST" enctype="multipart/form-data">

@@ -1,14 +1,16 @@
 <?php
-require '../../config/config.php';
 
 
+require_once('../../config/config.php');
 if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
+
+    header('Location: login.php');
     exit();
 }
-
 $username = htmlspecialchars($_SESSION['username']);
 $user_id = isset($_SESSION['id']) ? htmlspecialchars($_SESSION['id']) : 'ID not set';
+$email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Email not set';
+
 
 // Fetch notifications for the user
 $stmt = $pdo->prepare("SELECT * FROM notifications WHERE user_id = :user_id ORDER BY created_at DESC");
@@ -20,13 +22,13 @@ $stmt = $pdo->prepare("SELECT COUNT(*) FROM notifications WHERE user_id = :user_
 $stmt->execute([':user_id' => $user_id]);
 $unread_count = $stmt->fetchColumn();
 
-// Mark notifications as read
+
 $stmt = $pdo->prepare("UPDATE notifications SET status = 'read' WHERE user_id = :user_id AND status = 'unread'");
 $stmt->execute([':user_id' => $user_id]);
 ?>
 
 
-<style>/* Add this CSS to your existing styles */
+<style>
 .notification-count {
     display: inline-block;
     background-color: red;
@@ -75,19 +77,13 @@ $stmt->execute([':user_id' => $user_id]);
                     <li class="menu-item menu-item-has-children">
                         <a href="#">Wallets</a>
                         <ul class="sub-menu">
+                            <li class="menu-item"><a href="../wallet/deposit.php">Deposit</a></li>
                             <li class="menu-item"><a href="wallet-overview.html">Wallet Overview</a></li>
                             <li class="menu-item"><a href="wallet-transactions.html">Transactions</a></li>
                             <li class="menu-item"><a href="wallet-settings.html">Wallet Settings</a></li>
                         </ul>
                     </li>
-                    <li class="menu-item menu-item-has-children">
-                        <a href="#">Trade</a>
-                        <ul class="sub-menu">
-                            <li class="menu-item"><a href="trade-spot.html">Spot Trading</a></li>
-                            <li class="menu-item"><a href="trade-margin.html">Margin Trading</a></li>
-                            <li class="menu-item"><a href="trade-futures.html">Futures Trading</a></li>
-                        </ul>
-                    </li>
+                    
                     <li class="menu-item menu-item-has-children">
                         <a href="#">Portfolio</a>
                         <ul class="sub-menu">
@@ -97,15 +93,16 @@ $stmt->execute([':user_id' => $user_id]);
                     </li>
                     
                     <li class="menu-item menu-item-has-children">
-                        <a href="#">Account</a>
+                        <a href="#"><?php echo $email; ?></a>
                         <ul class="sub-menu">
+                            <li class="menu-item"><a href="../profile/profile.php">My profile</a></li>
                             <li class="menu-item"><a href="../profile/verify.php">Verify</a></li>
                             <li class="menu-item"><a href="../profile/modify_password.php">Change password</a></li>
                             <li class="menu-item"><a href="../auth/logout.php">Logout</a></li>
                         </ul>
                     </li>
                     <li>
-                    <a href="#" data-toggle="modal" data-target="#popup_bid" class="tf-button style1">
+                    <a href="#" class="tf-button style1">
                 Connect Wallet
             </a>
             <div class="mobile-button"><span></span></div><!-- /.mobile-button -->

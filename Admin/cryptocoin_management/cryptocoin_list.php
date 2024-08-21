@@ -81,7 +81,7 @@ $cryptocoin = $stmt->fetchAll();
 <main class="main-content">
 <div class="container-fluid content-inner pb-0">
 <img src="../uploads/icon.png" width=90px style="border-radius:100px;"><br> <br><br> <br>
-<a href="create_cryptocoin.php"><img src="../uploads/crud/add.png" width=30px style="border-radius:100px;">Add cryptocoin
+<a href="create_cryptocoin.php">Add cryptocoin
 <table class="styled-table">
     <thead>
         <tr>

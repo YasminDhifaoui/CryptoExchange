@@ -50,14 +50,73 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modify Password</title>
 
-    
-    
-<link rel="stylesheet" href="../app/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../app/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="../app/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="../assets/font/risebot.css">
     <link rel="stylesheet" href="../assets/font/font-awesome.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="../app/dist/app.css">
+
+    <!-- Custom CSS -->
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: gray;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container p {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-container label {
+            font-weight: bold;
+            color: black;
+        }
+
+        .form-container input[type="text"], 
+        .form-container input[type="file"],
+        .form-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            font-size: 14px;
+            color: black;
+        }
+
+        .form-container button[type="submit"] {
+            background-color: black;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .page-title {
+            padding: 40px 0;
+            text-align: center;
+            color: #fff;
+        }
+    </style>
 
     <!-- Favicon and Touch Icons  -->
     <link rel="shortcut icon" href="../assets/images/favicon.png">
@@ -67,9 +126,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 
-
 <?php include_once '../includes/nav.php'?>
-
+<br><br>
 <section class="page-title">
     <div class="form-container">
         <p>ID: <?php echo $id; ?></p>
@@ -86,22 +144,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </section>
 
-
-    
 <script src="../app/js/jquery.min.js"></script>
-    <script src="../app/js/bootstrap.min.js"></script>
+<script src="../app/js/bootstrap.min.js"></script>
+<script src="../app/js/swiper-bundle.min.js"></script>
+<script src="../app/js/swiper.js"></script>
+<script src="../app/js/jquery.easing.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="../app/js/parallax.js"></script>
+<script src="../app/js/jquery.magnific-popup.min.js"></script>
 
-    <script src="../app/js/swiper-bundle.min.js"></script>
-    <script src="../app/js/swiper.js"></script>
-    <script src="../app/js/jquery.easing.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-     <script src="../app/js/parallax.js"></script>
-     <script src="../app/js/jquery.magnific-popup.min.js"></script>
-
-     <script src="../app/js/app.js"></script>
-     <script src="../app/js/count-down.js"></script>
-     <!-- <script src="app/js/countto.js"></script> --> 
-     <script src="../app/js/plugin.js"></script>
-     <script src="../app/js/donatProgress.js"></script> 
+<script src="../app/js/app.js"></script>
+<script src="../app/js/count-down.js"></script>
+<script src="../app/js/plugin.js"></script>
+<script src="../app/js/donatProgress.js"></script> 
 </body>
 </html>

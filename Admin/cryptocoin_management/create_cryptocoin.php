@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $dest_path = $uploadFileDir . $newFileName;
 
         // Allow certain file formats
-        $allowedfileExtensions = array('jpg', 'jpeg', 'png', 'gif');
+        $allowedfileExtensions = array('jpg', 'jpeg', 'png', 'gif','webp');
         if (in_array($fileExtension, $allowedfileExtensions)) {
             if (move_uploaded_file($fileTmpPath, $dest_path)) {
                 $target_file = $dest_path; // Set the target file to be stored in the database
@@ -161,8 +161,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 <label for="proof_type">Proof Type:</label>
                 <select id="proof_type" name="proof_type" required>
-                    <option value="local_coin">Local Coin</option>
-                    <option value="fiat_currency">Fiat Currency</option>
+                    <option value="crypto">Local Coin</option>
+                    <option value="fiat">Fiat Currency</option>
                 </select> <br>
 
                 <label for="show_home">Show Home:</label>

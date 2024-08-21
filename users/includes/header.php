@@ -44,7 +44,8 @@
                             <li class="menu-item"><a href="faq.html">FAQs</a></li>
                             <li class="menu-item"><a href="blog-grid.html">Blog</a></li>
                             <li class="menu-item"><a href="guides.html">Guides</a></li>
-                            <li class="menu-item"><a href="./auth/login.php">Login</a></li>
+                            <li class="menu-item"><a href="./auth/login.php">Login (as User)</a></li>
+                            <li class="menu-item"><a href="../Admin/auth/sign-in.php">Login (as Admin)</a></li>
                             <li class="menu-item"><a href="./auth/register.php">Register</a></li>
                             <li class="menu-item"><a href="forget-password.php">Forget Password</a></li>
                         </ul>

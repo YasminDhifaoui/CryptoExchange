@@ -6,6 +6,25 @@ use PHPMailer\PHPMailer\Exception;
 
 session_start();
 
+
+function getClientIP() {
+    if (!empty($_SERVER['HTTP_CLIENT_IP']) && filter_var($_SERVER['HTTP_CLIENT_IP'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+       
+        return $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        
+        $ipList = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+        foreach ($ipList as $ip) {
+            $ip = trim($ip);
+            if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+                return $ip;
+            }
+        }
+    } 
+    return filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ?: '127.0.0.0';
+}
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -24,6 +43,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['username'] = $username;  
         $_SESSION['id'] = $user_id;          
         $_SESSION['email'] = $user_email; 
+
+
+
+         $logType = 'login';
+         $accessTime = date('Y-m-d H:i:s');
+         $userAgent = $_SERVER['HTTP_USER_AGENT'];
+ 
+         $ipAddress = getClientIP();
+ 
+         $stmt = $pdo->prepare("INSERT INTO user_log (log_type, access_time, user_agent, user_email, ip) VALUES (:log_type, :access_time, :user_agent, :user_email, :ip)");
+         $stmt->execute([
+             ':log_type' => $logType,
+             ':access_time' => $accessTime,
+             ':user_agent' => $userAgent,
+             ':user_email' => $email,
+             ':ip' => $ipAddress
+         ]);
 
         if (password_verify($password, $stored_password)) {
             $two_factor_code = random_int(100000, 999999);
