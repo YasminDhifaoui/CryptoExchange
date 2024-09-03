@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 21, 2024 at 06:56 PM
+-- Generation Time: Sep 03, 2024 at 08:57 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,7 +40,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `username`, `email`, `password`, `created_at`) VALUES
-(5, 'admin1', 'admin1@gmail.com', '$2y$10$A0lBkyPaBGXpDDJpXCLKdeQdNQ7.7ZMJx.qAbCEPO3.17K5m4zINK', '2024-07-08 17:13:37'),
+(5, 'admin', 'admin1@gmail.com', '$2y$10$mFlCsQy7CTWyJpxax9zofOsdQ.oTNWZbdTqQrjZyqCDTYEie01p.q', '2024-07-08 17:13:37'),
 (7, 'admin2', 'yasmingargouri04@gmail.com', '$2y$10$Si6QKgj66T1i8EP3uy361ON.HOUoS7XksVH2c85po9.GTgHe5l65K', '2024-07-22 21:22:02');
 
 -- --------------------------------------------------------
@@ -66,6 +66,26 @@ CREATE TABLE `balance` (
 INSERT INTO `balance` (`id`, `user_id`, `currency_id`, `currency_symbol`, `balance`, `date`, `note`) VALUES
 (6, 38, 1, 'BTC', 1000.00000000, '2024-08-12 14:20:55', 'first credit'),
 (7, 38, 4, 'VET', 2000.00000000, '2024-08-12 14:22:55', 'second credit');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blocklist`
+--
+
+CREATE TABLE `blocklist` (
+  `id` bigint(20) NOT NULL,
+  `ip_mail` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `blocklist`
+--
+
+INSERT INTO `blocklist` (`id`, `ip_mail`) VALUES
+(12, 'med.yassine.bouneb@proton.me'),
+(14, 'midou.jrad2001@gmail.com'),
+(15, 'Raslendhifaoui1@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -164,6 +184,32 @@ INSERT INTO `deposit_methods` (`id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `fees`
+--
+
+CREATE TABLE `fees` (
+  `id` int(11) NOT NULL,
+  `level` varchar(100) NOT NULL,
+  `fees` double NOT NULL,
+  `currency_id` int(11) NOT NULL,
+  `currency_symbol` varchar(100) NOT NULL,
+  `status` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `fees`
+--
+
+INSERT INTO `fees` (`id`, `level`, `fees`, `currency_id`, `currency_symbol`, `status`) VALUES
+(1, 'transfer', 0.01, 0, 'ETH', 0),
+(2, 'sell', 0.07, 0, 'VET', 0),
+(3, 'buy', 1, 0, 'LTC', 0),
+(4, 'buy', 0.01, 2, 'ETH', 0),
+(5, 'transfer', 0.01, 1, 'BTC', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `market`
 --
 
@@ -208,7 +254,12 @@ INSERT INTO `notifications` (`id`, `user_id`, `message`, `status`, `created_at`)
 (1, 47, 'Your verification request has been accepted.', 'read', '2024-08-10 12:40:52'),
 (2, 34, 'Your verification request has been refused.', 'read', '2024-08-10 12:59:00'),
 (3, 34, 'Your verification request has been refused.', 'read', '2024-08-10 13:04:10'),
-(4, 34, 'Your verification request has been accepted.', 'read', '2024-08-12 12:07:58');
+(4, 34, 'Your verification request has been accepted.', 'read', '2024-08-12 12:07:58'),
+(5, 47, 'Your verification request has been refused.', 'read', '2024-09-03 18:33:32'),
+(6, 47, 'Your verification request has been accepted.', 'read', '2024-09-03 18:34:18'),
+(7, 47, 'Your verification request has been accepted.', 'read', '2024-09-03 18:41:12'),
+(8, 47, 'Your verification request has been accepted.', 'read', '2024-09-03 18:46:06'),
+(9, 34, 'Your verification request has been refused.', 'read', '2024-09-03 18:48:43');
 
 -- --------------------------------------------------------
 
@@ -239,6 +290,73 @@ INSERT INTO `pair_coin` (`id`, `name`, `fullname`, `market_name`, `cryptocoin_na
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `setting`
+--
+
+CREATE TABLE `setting` (
+  `setting_id` int(11) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `siteDescription` text DEFAULT NULL,
+  `sitekeywords` text DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `logo` varchar(255) DEFAULT NULL,
+  `logo_web` varchar(255) NOT NULL,
+  `favicon` varchar(255) DEFAULT NULL,
+  `language` varchar(100) DEFAULT NULL,
+  `site_align` varchar(50) DEFAULT NULL,
+  `footer_text` varchar(255) DEFAULT NULL,
+  `time_zone` varchar(100) DEFAULT NULL,
+  `latitude` varchar(100) DEFAULT NULL,
+  `office_time` varchar(255) DEFAULT NULL,
+  `show_trademenu_without_verify` tinyint(1) NOT NULL DEFAULT 1,
+  `email_verify` tinyint(1) NOT NULL DEFAULT 0 COMMENT ' 0=Not required, 1= Required ',
+  `phone_verify` tinyint(1) NOT NULL DEFAULT 0 COMMENT ' 0=Not required, 1= Required ',
+  `kyc_verify` tinyint(1) NOT NULL DEFAULT 0 COMMENT ' 0=Not required, 1= Required ',
+  `update_notification` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `setting`
+--
+
+INSERT INTO `setting` (`setting_id`, `title`, `description`, `siteDescription`, `sitekeywords`, `email`, `phone`, `logo`, `logo_web`, `favicon`, `language`, `site_align`, `footer_text`, `time_zone`, `latitude`, `office_time`, `show_trademenu_without_verify`, `email_verify`, `phone_verify`, `kyc_verify`, `update_notification`) VALUES
+(1, 'CryptoLyrics', 'A cryptocurrency platform', 'Welcome to CryptoLyrics - Your crypto hub', 'crypto, finance, exchange,Bitcoin', 'info@cryptolyrics.com', '+216 50778334', '../uploads/icon.png', '../uploads/ho0ygqy8x5e51.webp', '../uploads/2ca72615a2f64bbf1ac2e47a38030a43.jpg', 'eng', '', '© 2024 CryptoLyrics. All rights reserved.', 'UTC', '36.8065° N, 10.1815° E', 'Mon-Fri 9AM - 7PM', 0, 0, 1, 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transfer`
+--
+
+CREATE TABLE `transfer` (
+  `id` int(11) NOT NULL,
+  `sender_user_id` varchar(255) DEFAULT NULL,
+  `receiver_user_id` varchar(255) DEFAULT NULL,
+  `amount` double(19,8) DEFAULT NULL,
+  `currency_symbol` varchar(100) NOT NULL,
+  `fees` double(19,8) NOT NULL,
+  `request_ip` varchar(45) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `comments` longtext DEFAULT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='client to client transfer success, request data recorded.';
+
+--
+-- Dumping data for table `transfer`
+--
+
+INSERT INTO `transfer` (`id`, `sender_user_id`, `receiver_user_id`, `amount`, `currency_symbol`, `fees`, `request_ip`, `date`, `comments`, `status`) VALUES
+(1, '47', '34', 1000.00000000, 'ETH', 0.01000000, '::1', '2024-08-31', 'aaaaa', 111),
+(2, '47', '34', 1000.00000000, 'ETH', 0.01000000, '::1', '2024-08-31', 'aaaaa', 0),
+(3, '47', '38', 1000.00000000, 'ETH', 0.01000000, '::1', '2024-08-31', 'bbb', 0),
+(4, '47', '38', 20.00000000, 'BTC', 0.01000000, '::1', '2024-08-31', 'tttt', 0),
+(5, '47', '38', 20.00000000, 'BTC', 0.01000000, '::1', '2024-08-31', 'tttt', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -261,9 +379,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `lastName`, `email`, `password`, `two_factor_enabled`, `status`, `created_at`, `verification_token`, `is_active`, `two_factor_code`) VALUES
-(34, 'aaaa', '', 'Raslendhifaoui1@gmail.com', '$2y$10$sXhy.dkP.IaIv.VdcgaLlu1UO1BKfw/1iVvtQq.E8nUPgciu7fzTi', 1, 'active', '2024-07-02 16:40:37', 'd2eaee2ce8c98e7f08a5434d4f202881', 0, '299114'),
+(34, 'aaaa', '', 'Raslendhifaoui1@gmail.com', '$2y$10$sXhy.dkP.IaIv.VdcgaLlu1UO1BKfw/1iVvtQq.E8nUPgciu7fzTi', 1, 'active', '2024-07-02 16:40:37', 'd2eaee2ce8c98e7f08a5434d4f202881', 0, '591309'),
 (38, 'yassine', '', 'med.yassine.bouneb@proton.me', '$2y$10$.cnIM3/BS9ajmYVjpr2S0OScKyTrpnn3ra5mLEgpgYN0KoXK/G9cq', 0, 'inactive', '2024-07-07 19:33:19', '67363f400413d473eacadb55f50a3861', 1, ''),
-(47, 'yasmin', '', 'yasmingargouri04@gmail.com', '$2y$10$HE6fu3K1rZcQkHcOMQJR9.Ps/DPdr8EoqOpznYTyiT61zD/QNr9i6', 1, 'active', '2024-07-13 13:06:44', '41e5dad77dcea5354cb10e58dcf6256426510c077a612f7f75ca493db63e2b9a', 0, '338953'),
+(47, 'yasmin', '', 'yasmingargouri04@gmail.com', '$2y$10$HE6fu3K1rZcQkHcOMQJR9.Ps/DPdr8EoqOpznYTyiT61zD/QNr9i6', 1, 'active', '2024-07-13 13:06:44', '41e5dad77dcea5354cb10e58dcf6256426510c077a612f7f75ca493db63e2b9a', 0, '504313'),
 (49, 'ahmed', '', 'midou.jrad2001@gmail.com', '$2y$10$dAqYtVUMeM3mALglNnveKusErvMDqZ6waavM68hvUBjNM3.xnNNiC', 1, 'active', '2024-08-08 12:03:52', '9c45c191dc7d20ad76bbcc823f52014d29e83c004afd9567ac840600a9b53d53', 0, '952954');
 
 -- --------------------------------------------------------
@@ -291,7 +409,27 @@ INSERT INTO `user_log` (`log_id`, `log_type`, `access_time`, `user_agent`, `user
 (3, 'login', '2024-08-21 17:15:05', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'yasmingargouri04@gmail.com', '::1'),
 (4, 'login', '2024-08-21 17:21:21', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'yasmingargouri04@gmail.com', '0.0.0.0'),
 (5, 'login', '2024-08-21 17:31:49', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'yasmingargouri04@gmail.com', '0.0.0.0'),
-(6, 'login', '2024-08-21 17:33:07', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'yasmingargouri04@gmail.com', '127.0.0.0');
+(6, 'login', '2024-08-21 17:33:07', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'yasmingargouri04@gmail.com', '127.0.0.0'),
+(7, 'login', '2024-08-21 18:14:40', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'yasmingargouri04@gmail.com', '127.0.0.0'),
+(8, 'login', '2024-08-21 18:16:11', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36 Edg/127.0.0.0', 'yasmingargouri04@gmail.com', '127.0.0.0'),
+(9, 'login', '2024-08-25 13:28:30', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'yasmingargouri04@gmail.com', '127.0.0.0'),
+(10, 'login', '2024-08-25 13:33:20', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'yasmingargouri04@gmail.com', '127.0.0.0'),
+(11, 'login', '2024-08-25 13:33:30', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'yasmingargouri04@gmail.com', '127.0.0.0'),
+(12, 'login', '2024-08-25 13:39:04', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'yasmingargouri04@gmail.com', '127.0.0.0'),
+(13, 'login', '2024-08-25 13:39:56', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'yasmingargouri04@gmail.com', '127.0.0.0'),
+(14, 'login', '2024-08-26 14:39:51', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'yasmingargouri04@gmail.com', '127.0.0.0'),
+(15, 'login', '2024-08-31 17:14:58', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36', 'yasmingargouri04@gmail.com', '127.0.0.0'),
+(16, 'login', '2024-09-01 14:47:18', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'Raslendhifaoui1@gmail.com', '127.0.0.0'),
+(17, 'login', '2024-09-01 14:52:50', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'yasmingargouri04@gmail.com', '127.0.0.0'),
+(18, 'login', '2024-09-01 15:00:34', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'yasmingargouri04@gmail.com', '127.0.0.0'),
+(19, 'login', '2024-09-01 15:04:51', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'yasmingargouri04@gmail.com', '127.0.0.0'),
+(20, 'login', '2024-09-01 15:05:00', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'yasmingargouri04@gmail.com', '127.0.0.0'),
+(21, 'login', '2024-09-03 18:57:37', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'yasmingargouri04@gmail.com', '127.0.0.0'),
+(22, 'login', '2024-09-03 19:27:45', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'yasmingargouri04@gmail.com', '127.0.0.0'),
+(23, 'login', '2024-09-03 19:27:53', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'yasmingargouri04@gmail.com', '127.0.0.0'),
+(24, 'login', '2024-09-03 19:35:53', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'Raslendhifaoui1@gmail.com', '127.0.0.0'),
+(25, 'login', '2024-09-03 19:38:29', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'yasmingargouri04@gmail.com', '127.0.0.0'),
+(26, 'login', '2024-09-03 19:47:44', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'Raslendhifaoui1@gmail.com', '127.0.0.0');
 
 -- --------------------------------------------------------
 
@@ -315,16 +453,27 @@ CREATE TABLE `verifications` (
 --
 
 INSERT INTO `verifications` (`id`, `user_id`, `cin`, `first_name`, `last_name`, `cinpic`, `verif_status`, `created_at`) VALUES
-(1, 34, '0011223344', 'ras', 'len', '34_cin.jpg', 'Accepted', '2024-08-10 11:49:34'),
-(2, 34, '0011223344', 'ras', 'l', '34_cin.jpg', 'Accepted', '2024-08-10 12:11:20'),
-(3, 34, '0011223344', 'aa', 'aa', '34_cin.jpg', 'Accepted', '2024-08-10 12:16:29'),
-(4, 34, '00', '00', '00', '34_cin.jpg', 'Accepted', '2024-08-10 12:23:28'),
-(5, 34, 'bb', 'bb', 'bb', '34_cin.jpg', 'Accepted', '2024-08-10 12:25:59'),
-(6, 34, 'bb', 'bb', 'bb', '34_cin.jpg', 'Accepted', '2024-08-10 12:35:43'),
-(7, 47, '1111111111', 'yas', 'min', '47_cin.jpg', 'Accepted', '2024-08-10 12:38:06'),
-(8, 34, '00', 'ras', 'len', '34_cin.jpg', 'Accepted', '2024-08-10 12:58:26'),
-(9, 34, 'bb', 'vv', 'vv', '34_cin.jpg', 'Accepted', '2024-08-10 13:04:03'),
-(10, 34, '0011223344', 'ras', 'len', '34_cin.jpg', 'Accepted', '2024-08-12 12:07:21');
+(14, 47, '0011223344', 'yasmin', '2', '47_cin.jpg', 'Accepted', '2024-09-03 18:45:42'),
+(15, 34, '00', 'user', '2', '34_cin.jpg', 'Refused', '2024-09-03 18:48:16');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `web_subscriber`
+--
+
+CREATE TABLE `web_subscriber` (
+  `sub_id` int(11) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `web_subscriber`
+--
+
+INSERT INTO `web_subscriber` (`sub_id`, `email`, `status`) VALUES
+(1, 'yasmingargouri04@gmail.com', 1);
 
 --
 -- Indexes for dumped tables
@@ -343,6 +492,12 @@ ALTER TABLE `balance`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_idUser` (`user_id`),
   ADD KEY `fk_idcrypto` (`currency_id`);
+
+--
+-- Indexes for table `blocklist`
+--
+ALTER TABLE `blocklist`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `cryptocoin`
@@ -366,6 +521,12 @@ ALTER TABLE `deposit_methods`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `fees`
+--
+ALTER TABLE `fees`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `market`
 --
 ALTER TABLE `market`
@@ -383,6 +544,12 @@ ALTER TABLE `notifications`
 -- Indexes for table `pair_coin`
 --
 ALTER TABLE `pair_coin`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `transfer`
+--
+ALTER TABLE `transfer`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -405,6 +572,13 @@ ALTER TABLE `verifications`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `web_subscriber`
+--
+ALTER TABLE `web_subscriber`
+  ADD PRIMARY KEY (`sub_id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -419,6 +593,12 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `balance`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `blocklist`
+--
+ALTER TABLE `blocklist`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `cryptocoin`
@@ -439,6 +619,12 @@ ALTER TABLE `deposit_methods`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `fees`
+--
+ALTER TABLE `fees`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `market`
 --
 ALTER TABLE `market`
@@ -448,7 +634,7 @@ ALTER TABLE `market`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `pair_coin`
@@ -457,22 +643,34 @@ ALTER TABLE `pair_coin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `transfer`
+--
+ALTER TABLE `transfer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `user_log`
 --
 ALTER TABLE `user_log`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `verifications`
 --
 ALTER TABLE `verifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `web_subscriber`
+--
+ALTER TABLE `web_subscriber`
+  MODIFY `sub_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

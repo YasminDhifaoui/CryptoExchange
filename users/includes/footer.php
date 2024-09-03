@@ -1,10 +1,18 @@
+<?php 
+require_once('../../config/config.php');
+
+$stmt = $pdo->query("SELECT * FROM setting");
+$setting = $stmt->fetch(); 
+?>
+
 <footer id="footer">
         <div class="footer-main">
             <div class="container">
                 <div class="row">
                     <div class="footer-logo">
                         
-                        <p>A one-stop destination for cryptocurrency.</p>
+                        <p><?php echo $setting['description']; ?></p>
+                        <p><?php echo $setting['siteDescription']; ?></p>
                     </div>
                     <div class="widget">
                         <h5 class="widget-title">
@@ -13,15 +21,15 @@
                         <ul class="widget-link contact">
                             <li>
                                 <p>Address</p>
-                                <a href="#">1901 Thornridge Cir. Shiloh, Hawaii 81063</a>
+                                <a href="#"><?php echo $setting['latitude']; ?></a>
                             </li>
                             <li>
                                 <p>Phone</p>
-                                <a href="#">+33 7 00 55 57 60</a>
+                                <a href="#"><?php echo $setting['phone']; ?></a>
                             </li>
                             <li class="email">
                                 <p>Email</p>
-                                <a href="#">risebot@support.com</a>
+                                <a href="#"><?php echo $setting['email']; ?></a>
                             </li>
                         </ul>
                     </div>
@@ -70,7 +78,7 @@
             <div class="container">
                 <div class="wrap-fx">
                     <div class="Copyright">
-                        Copyright © 2023. Designed by <a href="https://themeforest.net/user/themesflat/portfolio">Themesflat</a>
+                    <?php echo $setting['footer_text']; ?>
                     </div>
                     <ul class="social">
                         <li>

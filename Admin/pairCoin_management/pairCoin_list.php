@@ -21,8 +21,8 @@ $pairs = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pair Coin List</title>
-    <link rel="shortcut icon" href="../assets/images/favicon.ico" />
+    
+    <?php include_once'../includes/title.php';?>
       <link rel="stylesheet" href="../assets/css/libs.min.css">
       <link rel="stylesheet" href="../assets/css/coinex.css?v=1.0.0">  </head>
        <style>

@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Verification</title>
+    <?php include_once '../includes/title.php';  ?>
 
     <link rel="stylesheet" href="../app/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="../app/swiper/swiper-bundle.min.css">
@@ -145,11 +145,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     </style>
 
-    <!-- Favicon and Touch Icons  -->
-    <link rel="shortcut icon" href="../assets/images/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="../assets/images/favicon.png">
-
-    <script src="https://code.highcharts.com/highcharts.js"></script>
 </head>
 <body>
 

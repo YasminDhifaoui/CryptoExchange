@@ -68,28 +68,26 @@ $stmt->execute([':user_id' => $user_id]);
                     <li class="menu-item menu-item-has-children">
                         <a href="#">Markets</a>
                         <ul class="sub-menu">
-                            <li class="menu-item"><a href="market-overview.html">Market Overview</a></li>
-                            <li class="menu-item"><a href="top-gainers.html">Top Gainers</a></li>
+                            <li class="menu-item"><a href="../market/subscribe.php">Subscribe</a></li>
+                            <!--<li class="menu-item"><a href="top-gainers.html">Top Gainers</a></li>
                             <li class="menu-item"><a href="top-losers.html">Top Losers</a></li>
-                            <li class="menu-item"><a href="market-details.html">Market Details</a></li>
+                            <li class="menu-item"><a href="market-details.html">Market Details</a></li>-->
                         </ul>
                     </li>
                     <li class="menu-item menu-item-has-children">
                         <a href="#">Wallets</a>
                         <ul class="sub-menu">
                             <li class="menu-item"><a href="../wallet/deposit.php">Deposit</a></li>
-                            <li class="menu-item"><a href="wallet-overview.html">Wallet Overview</a></li>
-                            <li class="menu-item"><a href="wallet-transactions.html">Transactions</a></li>
-                            <li class="menu-item"><a href="wallet-settings.html">Wallet Settings</a></li>
+                            <li class="menu-item"><a href="../wallet/transfer.php">Transfer</a></li>
                         </ul>
                     </li>
                     
                     <li class="menu-item menu-item-has-children">
                         <a href="#">Portfolio</a>
-                        <ul class="sub-menu">
+                        <!--<ul class="sub-menu">
                             <li class="menu-item"><a href="portfolio-overview.html">Portfolio Overview</a></li>
                             <li class="menu-item"><a href="portfolio-performance.html">Performance</a></li>
-                        </ul>
+                        </ul>-->
                     </li>
                     
                     <li class="menu-item menu-item-has-children">

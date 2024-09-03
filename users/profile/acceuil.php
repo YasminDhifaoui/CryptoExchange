@@ -16,7 +16,7 @@ $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Ema
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil</title>
+    <?php include_once '../includes/title.php';  ?>
     
 </head>
 <link rel="stylesheet" href="../app/bootstrap/css/bootstrap.css">
@@ -26,19 +26,14 @@ $email = isset($_SESSION['email']) ? htmlspecialchars($_SESSION['email']) : 'Ema
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="../app/dist/app.css">
 
-    <!-- Favicon and Touch Icons  -->
-    <link rel="shortcut icon" href="../assets/images/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="../assets/images/favicon.png">
-
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-<body>
+    <body>
     
 <?php include_once '../includes/nav.php'?>
 
 
 <section class="page-title"> 
     <div class="message">
-        <h1>Welcome, <?php echo $username; ?> !</h1>
+        <h4>Welcome, <?php echo $username; ?> !</h4>
         <p>Your account has been verified !</p>
         
     </div>

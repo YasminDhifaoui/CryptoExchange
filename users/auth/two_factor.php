@@ -54,54 +54,86 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Two-Factor Authentication</title>
+    
+    <link rel="stylesheet" href="../app/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../app/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="../assets/font/risebot.css">
+    <link rel="stylesheet" href="../assets/font/font-awesome.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="../app/dist/app.css">
+
+    <!-- Custom CSS -->
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #000000;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        h2 {
-            color: #007bff;
-        }
-        form {
-            width: 30%;
-            background-color: #000000;
+        .form-container {
+            max-width: 600px;
+            margin: 30px auto;
             padding: 20px;
-            border: 2px solid #007bff;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+            background-color: gray;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }
-        input[type="text"] {
-            width: 90%;
-            padding: 10px;
-            border: 1px solid #007bff;
-            border-radius: 5px;
-            background-color: #000000;
-            color: white;
-            margin-top: 10px;
+
+        .form-container p {
+            font-size: 16px;
             margin-bottom: 10px;
+            color: #333;
         }
-        input[type="submit"] {
+
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-container label {
+            font-weight: bold;
+            color: black;
+        }
+
+        .form-container input[type="text"], 
+        .form-container input[type="file"] {
             width: 100%;
             padding: 10px;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            background-color: #007bff;
-            border: 2px solid #007bff;
-            border-radius: 5px;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            font-size: 14px;
+            color : black;
         }
-        input[type="submit"]:hover {
+
+        .form-container button[type="submit"] {
+            background-color: black;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container button[type="submit"]:hover {
             background-color: #0056b3;
         }
+
+        .form-container img {
+            margin-top: 20px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .page-title {
+            padding: 40px 0;
+            text-align: center;
+            color: #fff;
+        }
     </style>
+
+    <!-- Favicon and Touch Icons  -->
+    <link rel="shortcut icon" href="../assets/images/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/images/favicon.png">
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+</head>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -117,11 +149,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </script>
 </head>
 <body>
-    <h2>Two-Factor Authentication</h2>
+    
+<?php include_once '../includes/nav.php'?>
+<br><br><br><br><br><br>
+<section class="page-title">
+    <div class="form-container">
+    <h4>Verify Your Login</h4>
     <form action="" method="POST">
         <input type="hidden" name="username">
         <input type="text" name="two_factor_code" required placeholder="2FA Code">
         <button type="submit">Verify</button>
     </form>
+    </div>
+</section>
+
+<script src="../app/js/jquery.min.js"></script>
+<script src="../app/js/bootstrap.min.js"></script>
+
+<script src="../app/js/swiper-bundle.min.js"></script>
+<script src="../app/js/swiper.js"></script>
+<script src="../app/js/jquery.easing.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="../app/js/parallax.js"></script>
+<script src="../app/js/jquery.magnific-popup.min.js"></script>
+
+<script src="../app/js/app.js"></script>
+<script src="../app/js/count-down.js"></script>
+<script src="../app/js/plugin.js"></script>
+<script src="../app/js/donatProgress.js"></script> 
 </body>
 </html>

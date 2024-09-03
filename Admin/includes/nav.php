@@ -149,8 +149,8 @@
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li class="border-0"><a class="dropdown-item" href="../dashboard/app/user-profile.html">Profile</a></li>
-                    <li class="border-0"><a class="dropdown-item" href="../dashboard/app/user-privacy-setting.html">Privacy Setting</a></li>
+                    <li class="border-0"><a class="dropdown-item" href="../profile/adminProfile.php">Profile</a></li>
+                    <li class="border-0"><a class="dropdown-item" href="../settings/appSetting.php">Privacy Setting</a></li>
                     <li class="border-0"><hr class="m-0 dropdown-divider"></li>
                     <li class="border-0"><a class="dropdown-item" href="../auth/logout.php">Logout</a></li>
                   </ul>

@@ -1,4 +1,7 @@
 <?php
+
+require '../config/config.php';
+
 session_start();
 
 if (!isset($_SESSION['admin_username'])) {
@@ -7,6 +10,7 @@ if (!isset($_SESSION['admin_username'])) {
 }
 
 $username = $_SESSION['admin_username'];
+
 ?>
 
 <!doctype html>
@@ -14,9 +18,9 @@ $username = $_SESSION['admin_username'];
   <head>
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>Crypto</title>
+      
+    <?php include_once'../includes/title.php';?>
       <!-- Favicon -->
-      <link rel="shortcut icon" href="../assets/images/favicon.ico" />
       <link rel="stylesheet" href="../assets/css/libs.min.css">
       <link rel="stylesheet" href="../assets/css/coinex.css?v=1.0.0">  </head>
   <body class=" ">

@@ -25,9 +25,7 @@ $verifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User Verification Requests</title>
-    <link rel="stylesheet" href="../app/bootstrap/css/bootstrap.css">
-    <link rel="shortcut icon" href="../assets/images/favicon.ico" />
+    <?php include_once'../includes/title.php';?>
       <link rel="stylesheet" href="../assets/css/libs.min.css">
       <link rel="stylesheet" href="../assets/css/coinex.css?v=1.0.0">  </head>
        <style>

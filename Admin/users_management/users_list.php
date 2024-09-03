@@ -1,11 +1,10 @@
-
 <?php
 require '../config/config.php';
 
 session_start();
 
 if (!isset($_SESSION['admin_username'])) {
-    header("Location: login.php"); 
+    header("Location: login.php");
     exit();
 }
 
@@ -21,11 +20,12 @@ $users = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User List</title>
-    <link rel="shortcut icon" href="../assets/images/favicon.ico" />
-      <link rel="stylesheet" href="../assets/css/libs.min.css">
-      <link rel="stylesheet" href="../assets/css/coinex.css?v=1.0.0">  </head>
-       <style>
+    <?php include_once '../includes/title.php'; ?>
+    <link rel="stylesheet" href="../assets/css/libs.min.css">
+    <link rel="stylesheet" href="../assets/css/coinex.css?v=1.0.0">
+</head>
+<style>
+/* Styled Table */
 .styled-table {
     border-collapse: collapse;
     margin: 25px 0;
@@ -36,107 +36,160 @@ $users = $stmt->fetchAll();
 }
 
 .styled-table thead tr {
-    background-color: #ffa500; /* Light Orange */
-    color: #ffffff; /* White text */
+    background-color: #ffa500;
+    color: #ffffff;
     text-align: left;
 }
 
-.styled-table th,
-.styled-table td {
+.styled-table th, .styled-table td {
     padding: 12px 15px;
 }
 
 .styled-table tbody tr {
-    background-color: #000000; /* Black background */
-    color: #ffffff; /* White text */
-    border-bottom: 1px solid #ffffff; /* White border */
-}
-
-.styled-table tbody tr:nth-of-type(even) {
-    background-color: #000000; /* Black for even rows */
-}
-
-.styled-table tbody tr:nth-of-type(odd) {
-    background-color: #000000; /* Black for odd rows */
+    background-color: #000000;
+    color: #ffffff;
+    border-bottom: 1px solid #ffffff;
 }
 
 .styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid #ffa500; /* Light Orange */
+    border-bottom: 2px solid #ffa500;
 }
 
-.styled-table tbody tr.active-row {
-    font-weight: bold;
-    color: #ffa500; /* Light Orange */
+/* Toggle Switch */
+.switch-custom {
+    position: relative;
+    display: inline-block;
+    width: 45px;
+    height: 25px;
 }
 
+.switch-custom input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider-custom {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider-custom:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 2px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider-custom {
+    background-color: #2196F3;
+}
+
+input:checked + .slider-custom:before {
+    transform: translateX(20px);
+}
 </style>
-    
-</head>
+
 <body class="sb-nav-fixed">
-
-<?php include_once'../includes/nav.php'; ?>
-<?php include_once'../includes/sidebar.php';?>
-
+<?php include_once '../includes/nav.php'; ?>
+<?php include_once '../includes/sidebar.php'; ?>
 
 <main class="main-content">
-<div class="container-fluid content-inner pb-0">
-
-<img src="../uploads/Users.png" width=90px ><br> <br><br> <br>
-<table class="styled-table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>LastName</th>
-            <th>Email</th>
-            <th>Created_at</th>
-            <th>Is_active</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php if (count($users) > 0): ?>
-            <?php foreach ($users as $user): ?>
+    <div class="container-fluid content-inner pb-0">
+        <img src="../uploads/Users.png" width="90px"><br><br><br><br>
+        <table class="styled-table">
+            <thead>
                 <tr>
-                    <td><?php echo htmlspecialchars($user['id']); ?></td>
-                    <td><?php echo htmlspecialchars($user['username']); ?></td>
-                    <td><?php echo htmlspecialchars($user['lastName']); ?></td>
-                    <td><?php echo htmlspecialchars($user['email']); ?></td>
-                    <td><?php echo htmlspecialchars($user['created_at']); ?></td>
-                    <td><?php echo htmlspecialchars($user['is_active']); ?></td>
-                    <td>
-                        <a href="edit_user.php?id=<?php echo $user['id']; ?>">Edit</a>
-                        <a href="delete_user.php?id=<?php echo $user['id']; ?>" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
-                        
-
-                    </td>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>LastName</th>
+                    <th>Email</th>
+                    <th>Created_at</th>
+                    <th>Is_active</th>
+                    <th>Actions</th>
+                    <th>Block/unblock</th>
+                    
                 </tr>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <tr>
-                <td colspan="3">No users found.</td>
-            </tr>
-        <?php endif; ?>
-    </tbody>
-</table>
-        </div>
-        </div>
+            </thead>
+            <tbody>
+                <?php if (count($users) > 0): ?>
+                    <?php foreach ($users as $user): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($user['id']); ?></td>
+                            <td><?php echo htmlspecialchars($user['username']); ?></td>
+                            <td><?php echo htmlspecialchars($user['lastName']); ?></td>
+                            <td><?php echo htmlspecialchars($user['email']); ?></td>
+                            <td><?php echo htmlspecialchars($user['created_at']); ?></td>
+                            <td><?php echo htmlspecialchars($user['is_active']); ?></td>
+                            <td>
+                                <a href="edit_user.php?id=<?php echo $user['id']; ?>">Edit</a>
+                                <a href="delete_user.php?id=<?php echo $user['id']; ?>" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
+                            </td>
+                            <td>
+                            <label class="switch-custom">
+                                    <input type="checkbox" class="toggle-block" data-user-id="<?php echo $user['id']; ?>" data-user-email="<?php echo htmlspecialchars($user['email']); ?>" 
+                                        <?php 
+                                        $stmt = $pdo->prepare('SELECT * FROM blocklist WHERE ip_mail = :email');
+                                        $stmt->execute(['email' => $user['email']]);
+                                        $isBlocked = $stmt->fetch();
+                                        echo $isBlocked ? 'checked' : ''; 
+                                        ?>>
+                                    <span class="slider-custom"></span>
+                            </label>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="7">No users found.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</main>
 
-        
-      <?php include_once'../includes/footer.php';?>
+<?php include_once '../includes/footer.php'; ?>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const toggles = document.querySelectorAll('.toggle-block');
 
+    toggles.forEach(toggle => {
+        toggle.addEventListener('change', function() {
+            const userId = this.getAttribute('data-user-id');
+            const userEmail = this.getAttribute('data-user-email');
+            const isBlocked = this.checked ? 1 : 0;
 
-    <!-- Backend Bundle JavaScript -->
-    <script src="../assets/js/libs.min.js"></script>
-    <!-- widgetchart JavaScript -->
-    <script src="../assets/js/charts/widgetcharts.js"></script>
-    <!-- fslightbox JavaScript -->
-    <script src="../assets/js/fslightbox.js"></script>
-    <!-- app JavaScript -->
-    <script src="../assets/js/app.js"></script>
-    <!-- apexchart JavaScript -->
-    <script src="../assets/js/charts/apexcharts.js"></script>
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'block_user.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    console.log('User block status updated successfully');
+                } else {
+                    console.error('Failed to update user block status');
+                }
+            };
+            xhr.send('user_id=' + userId + '&email=' + userEmail + '&is_blocked=' + isBlocked);
+        });
+    });
+});
+</script>
 
+<script src="../assets/js/libs.min.js"></script>
+<script src="../assets/js/app.js"></script>
 </body>
 </html>

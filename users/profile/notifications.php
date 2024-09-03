@@ -33,7 +33,7 @@ $stmt->execute([':user_id' => $user_id]);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notifications</title>
+    <?php include_once '../includes/title.php';  ?>
     <link rel="stylesheet" href="../app/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="../app/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="../assets/font/risebot.css">
@@ -41,11 +41,6 @@ $stmt->execute([':user_id' => $user_id]);
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="../app/dist/app.css">
 
-    <!-- Favicon and Touch Icons  -->
-    <link rel="shortcut icon" href="../assets/images/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="../assets/images/favicon.png">
-
-    <script src="https://code.highcharts.com/highcharts.js"></script>
     <style>
         .styled-table {
             border-collapse: collapse;
