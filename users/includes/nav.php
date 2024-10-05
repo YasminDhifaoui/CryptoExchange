@@ -82,13 +82,13 @@ $stmt->execute([':user_id' => $user_id]);
                         </ul>
                     </li>
                     
-                    <li class="menu-item menu-item-has-children">
+                    <!--<li class="menu-item menu-item-has-children">
                         <a href="#">Portfolio</a>
-                        <!--<ul class="sub-menu">
+                        <ul class="sub-menu">
                             <li class="menu-item"><a href="portfolio-overview.html">Portfolio Overview</a></li>
                             <li class="menu-item"><a href="portfolio-performance.html">Performance</a></li>
-                        </ul>-->
-                    </li>
+                        </ul>
+                    </li>-->
                     
                     <li class="menu-item menu-item-has-children">
                         <a href="#"><?php echo $email; ?></a>

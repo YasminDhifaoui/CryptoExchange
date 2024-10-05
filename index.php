@@ -4,15 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="app/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="app/swiper/swiper-bundle.min.css">
-    <link rel="stylesheet" href="./assets/font/cryptorise.css">
-    <link rel="stylesheet" href="assets/font/font-awesome.css">
+    <link rel="stylesheet" href="./users/app/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="./users/app/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="./users/assets/font/cryptorise.css">
+    <link rel="stylesheet" href="./users/assets/font/font-awesome.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="app/dist/app.css">
+    <link rel="stylesheet" href="./users/app/dist/app.css">
 
-    
-    <?php include_once'../Admin/includes/title.php'; ?>
+    <?php 
+require_once('./Admin/config/config.php');
+
+$stmt = $pdo->query("SELECT * FROM setting");
+$setting = $stmt->fetch(); 
+?>
+
+<title>
+    <?php echo htmlspecialchars($setting['title']); ?>
+</title>
+<link rel="shortcut icon" href="<?php echo htmlspecialchars($setting['favicon']); ?>" />
+
 
 
 </head>
@@ -27,7 +37,7 @@
         <!-- /preloader -->
     <div id="wrapper">
         <!-- Header -->
-   <?php include_once'./includes/header.php' ?>
+   <?php include_once'./users/includes/header.php' ?>
     <!-- end Header -->
 
     <section class="page-title"> 
@@ -35,11 +45,11 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <div class="slider-st2">
-                        <img class="icon icon_1" src="./assets/images/common/crypto_icon1.png" alt="">
-                        <img class="icon icon_2" src="./assets/images/common/crypto_icon2.png" alt="">
-                        <img class="icon icon_3" src="./assets/images/common/crypto_icon3.png" alt="">
+                        <img class="icon icon_1" src="./users/assets/images/common/crypto_icon1.png" alt="">
+                        <img class="icon icon_2" src="./users/assets/images/common/crypto_icon2.png" alt="">
+                        <img class="icon icon_3" src="./users/assets/images/common/crypto_icon3.png" alt="">
                         <div class="overlay">
-                            <img src="./assets/images/backgroup/bg-slider2.png" alt="">
+                            <img src="./users/assets/images/backgroup/bg-slider2.png" alt="">
                         </div>
                         <div class="container">
                             <div class="row">
@@ -64,7 +74,7 @@
                 <div class="swiper-slide">
                     <div class="slider-st2">
                         <div class="overlay">
-                            <img src="./assets/images/backgroup/bg-slider2.png" alt="">
+                            <img src="./users/assets/images/backgroup/bg-slider2.png" alt="">
                         </div>
                         <div class="container">
                             <div class="row">
@@ -94,7 +104,7 @@
     </section>
     <div class="bg_body">
         <div class="bg_h2">
-            <img src="./assets/images/backgroup/bg_home2.png" alt="">
+            <img src="./users/assets/images/backgroup/bg_home2.png" alt="">
         </div>
 
         <section class="tf-section token">
@@ -238,13 +248,13 @@
                     <div class="col-lg-6 col-md-12">
                         <div class="tf-title" data-aos="fade-right" data-aos-duration="800">
                             <div class="img_technology">
-                                <img src="./assets/images/common/technology_bg.png" alt="">
-                                <img class="coin coin_1" src="./assets/images/common/coin1.png" alt="">
-                                <img class="coin coin_2" src="./assets/images/common/coin2.png" alt="">
-                                <img class="coin coin_3" src="./assets/images/common/coin3.png" alt="">
-                                <img class="coin coin_4" src="./assets/images/common/coin4.png" alt="">
-                                <img class="coin coin_5" src="./assets/images/common/coin5.png" alt="">
-                                <img class="coin coin_6" src="./assets/images/common/coin6.png" alt="">
+                                <img src="./users/assets/images/common/technology_bg.png" alt="">
+                                <img class="coin coin_1" src="./users/assets/images/common/coin1.png" alt="">
+                                <img class="coin coin_2" src="./users/assets/images/common/coin2.png" alt="">
+                                <img class="coin coin_3" src="./users/assets/images/common/coin3.png" alt="">
+                                <img class="coin coin_4" src="./users/assets/images/common/coin4.png" alt="">
+                                <img class="coin coin_5" src="./users/assets/images/common/coin5.png" alt="">
+                                <img class="coin coin_6" src="./users/assets/images/common/coin6.png" alt="">
                             </div>
                         </div>
                     </div>
@@ -259,40 +269,40 @@
                             <div class="swiper-container slider-6">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
-                                        <img src="./assets/images/common/logo_blockchain_1.png" alt="">
+                                        <img src="./users/assets/images/common/logo_blockchain_1.png" alt="">
                                     </div>
                                     <div class="swiper-slide">
-                                        <img src="./assets/images/common/logo_blockchain_2.png" alt="">
+                                        <img src="./users/assets/images/common/logo_blockchain_2.png" alt="">
                                     </div>
                                     <div class="swiper-slide">
-                                        <img src="./assets/images/common/logo_blockchain_3.png" alt="">
+                                        <img src="./users/assets/images/common/logo_blockchain_3.png" alt="">
                                     </div>
                                     <div class="swiper-slide">
-                                        <img src="./assets/images/common/logo_blockchain_4.png" alt="">
+                                        <img src="./users/assets/images/common/logo_blockchain_4.png" alt="">
                                     </div>
                                     <div class="swiper-slide">
-                                        <img src="./assets/images/common/logo_blockchain_5.png" alt="">
+                                        <img src="./users/assets/images/common/logo_blockchain_5.png" alt="">
                                     </div>
                                     <div class="swiper-slide">
-                                        <img src="./assets/images/common/logo_blockchain_6.png" alt="">
+                                        <img src="./users/assets/images/common/logo_blockchain_6.png" alt="">
                                     </div>
                                     <div class="swiper-slide">
-                                        <img src="./assets/images/common/logo_blockchain_4.png" alt="">
+                                        <img src="./users/assets/images/common/logo_blockchain_4.png" alt="">
                                     </div>
                                     <div class="swiper-slide">
-                                        <img src="./assets/images/common/logo_blockchain_5.png" alt="">
+                                        <img src="./users/assets/images/common/logo_blockchain_5.png" alt="">
                                     </div>
                                     <div class="swiper-slide">
-                                        <img src="./assets/images/common/logo_blockchain_6.png" alt="">
+                                        <img src="./users/assets/images/common/logo_blockchain_6.png" alt="">
                                     </div>
                                     <div class="swiper-slide">
-                                        <img src="./assets/images/common/logo_blockchain_1.png" alt="">
+                                        <img src="./users/assets/images/common/logo_blockchain_1.png" alt="">
                                     </div>
                                     <div class="swiper-slide">
-                                        <img src="./assets/images/common/logo_blockchain_2.png" alt="">
+                                        <img src="./users/assets/images/common/logo_blockchain_2.png" alt="">
                                     </div>
                                     <div class="swiper-slide">
-                                        <img src="./assets/images/common/logo_blockchain_3.png" alt="">
+                                        <img src="./users/assets/images/common/logo_blockchain_3.png" alt="">
                                     </div>
                                 </div>
                                 <div class="swiper-pagination pagination_slider-6"></div>
@@ -322,7 +332,7 @@
                                 <div class="swiper-slide">
                                     <div class="roadmap-box active">
                                         <div class="icon">
-                                            <img src="./assets/images/common/icon_roadmap.svg" alt="">
+                                            <img src="./users/assets/images/common/icon_roadmap.svg" alt="">
                                         </div>
                                         <div class="content">
                                             <h6 class="date">Q1 2024</h6>
@@ -337,7 +347,7 @@
                                 <div class="swiper-slide">
                                     <div class="roadmap-box active">
                                         <div class="icon">
-                                            <img src="./assets/images/common/icon_roadmap.svg" alt="">
+                                            <img src="./users/assets/images/common/icon_roadmap.svg" alt="">
                                         </div>
                                         <div class="content">
                                             <h6 class="date">Q2 2024</h6>
@@ -352,7 +362,7 @@
                                 <div class="swiper-slide">
                                     <div class="roadmap-box active">
                                         <div class="icon">
-                                            <img src="./assets/images/common/icon_roadmap.svg" alt="">
+                                            <img src="./users/assets/images/common/icon_roadmap.svg" alt="">
                                         </div>
                                         <div class="content">
                                             <h6 class="date">Q3 2024</h6>
@@ -367,7 +377,7 @@
                                 <div class="swiper-slide">
                                     <div class="roadmap-box active">
                                         <div class="icon">
-                                            <img src="./assets/images/common/icon_roadmap.svg" alt="">
+                                            <img src="./users/assets/images/common/icon_roadmap.svg" alt="">
                                         </div>
                                         <div class="content">
                                             <h6 class="date">Q4 2024</h6>
@@ -402,7 +412,7 @@
 
 <section class="tf-section partner_CTA">
     <div class="overlay">
-        <img src="./assets/images/backgroup/bg_partner.jpg" alt="">
+        <img src="./users/assets/images/backgroup/bg_partner.jpg" alt="">
     </div>
     <div class="container">
         <div class="row align-items-center">
@@ -423,10 +433,10 @@
             </div>
             <div class="col-lg-4 col-md-12">
                 <div class="image">
-                    <img class="img_main" src="./assets/images/common/img_partner.png" alt="">
-                    <img class="icon icon_1" src="./assets/images/common/icon_partner_1.png" alt="">
-                    <img class="icon icon_2" src="./assets/images/common/icon_partner_2.png" alt="">
-                    <img class="icon icon_3" src="./assets/images/common/icon_partner_3.png" alt="">
+                    <img class="img_main" src="./users/assets/images/common/img_partner.png" alt="">
+                    <img class="icon icon_1" src="./users/assets/images/common/icon_partner_1.png" alt="">
+                    <img class="icon icon_2" src="./users/assets/images/common/icon_partner_2.png" alt="">
+                    <img class="icon icon_3" src="./users/assets/images/common/icon_partner_3.png" alt="">
                 </div>
             </div> 
         </div>
@@ -503,7 +513,7 @@
 
 <!--footer-->
 <?php 
-require_once('../config/config.php');
+require_once('./config/config.php');
 
 $stmt = $pdo->query("SELECT * FROM setting");
 $setting = $stmt->fetch(); 
@@ -643,17 +653,17 @@ $setting = $stmt->fetch();
 
 </div>
 <a id="scroll-top"></a>
-<script src="app/js/jquery.min.js"></script>
-<script src="app/js/bootstrap.min.js"></script>
-<script src="app/js/swiper-bundle.min.js"></script>
-<script src="app/js/swiper.js"></script>
-<script src="app/js/jquery.easing.js"></script>
+<script src="./users/app/js/jquery.min.js"></script>
+<script src="./users/app/js/bootstrap.min.js"></script>
+<script src="./users/app/js/swiper-bundle.min.js"></script>
+<script src="./users/app/js/swiper.js"></script>
+<script src="./users/app/js/jquery.easing.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="app/js/parallax.js"></script>
-<script src="app/js/jquery.magnific-popup.min.js"></script>
-<script src="app/js/app.js"></script>
-<script src="app/js/count-down.js"></script>
-<script src="app/js/plugin.js"></script>
-<script src="app/js/donatProgress.js"></script> 
+<script src="./users/app/js/parallax.js"></script>
+<script src="./users/app/js/jquery.magnific-popup.min.js"></script>
+<script src="./users/app/js/app.js"></script>
+<script src="./users/app/js/count-down.js"></script>
+<script src="./users/app/js/plugin.js"></script>
+<script src="./users/app/js/donatProgress.js"></script> 
 </body>
 </html>
